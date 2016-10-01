@@ -1,0 +1,19 @@
+{
+  "name": "angular-template",
+  "version": "0.0.0",
+  "authors": [
+    "richard-clark <rctheslimer@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "open-sans-fontface": "~1.4.2",
+    "normalize-css": "~4.2.0"
+  }
+}

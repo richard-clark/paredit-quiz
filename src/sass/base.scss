@@ -1,0 +1,10 @@
+@import '../bower_components/normalize-css/normalize';
+@import '../bower_components/open-sans-fontface/open-sans.scss';
+
+@mixin default-font {
+  font-family: "Open Sans", sans-serif;
+}
+
+body {
+  @include default-font;
+}
