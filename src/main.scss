@@ -1,5 +1,87 @@
 @import "sass/base";
 
+$grey--light: #f0f0f0;
+$grey--med-light: #ddd;
+$grey: #bbb;
+$white: #fff;
+
+html {
+  background: $grey--light;
+}
+
+pre {
+  margin: 0;
+}
+
 body {
-  color: blue;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.nav {
+  background: $grey--med-light;
+  height: 2em;
+}
+
+.main {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.question {
+  background: $white;
+  min-width: 50%;
+
+  &__prompt {
+    display: block;
+    margin: 2em;
+
+    &__code {
+      font-size: 2em;
+    }
+
+    &__description {
+      color: $grey;
+      display: block;
+    }
+  }
+
+}
+
+.code {
+  &--cursor {
+    border-left: 2px solid red;
+  }
+
+  &--paren {
+    color: blue;
+  }
+}
+
+.modal {
+  background-color: rgba(0,0,0,0.75);
+  color: $white;
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+
+  &--hidden {
+    display: none;
+  }
+}
+
+.bindings {
+  &__binding {
+    border: 1px solid $grey;
+    font-family: monospace;
+    font-size: 3em;
+    margin: 0.3em;
+  }
 }

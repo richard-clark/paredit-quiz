@@ -7,6 +7,31 @@
     <script type="text/javascript" src="/static/index.js"></script>
   </head>
   <body>
-    <ui-view></ui-view>
+    <nav class="nav">
+      <div id="message"></div>
+      <div id="score"></div>
+    </nav>
+    <main class="main">
+      <span id="question-number"></span>
+      <div class="question">
+        <div class="question__prompt">
+          <span class="question__prompt__description">from this</span>
+          <pre class="question__prompt__code"
+            id="code-from"
+          ></pre>
+        </div>
+        <div class="question__prompt">
+          <span class="question__prompt__description">to this</span>
+          <pre class="question__prompt__code"
+            id="code-to"
+          ></pre>
+        </div>
+      </div>
+      <button eq-previous-question id="prev-question-button">Previous</button>
+      <button eq-next-question id="next-question-button">Next</button>
+      <div class="modal modal--hidden" id="hint">
+        <div id="commands"></div>
+      </div>
+    </main>
   </body>
 </html>
