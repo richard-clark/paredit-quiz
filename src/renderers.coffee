@@ -1,30 +1,33 @@
+hljs = require("highlight.js")
 rq = require("./rQuery")
 
-code = (element, code) ->
-  chars = code.split("").reduce (prev, char) ->
-    lastElement = prev[prev.length - 1]
-    if lastElement?.match(/[A-Za-z]$/)? and char.match(/[A-Za-z]/)?
-      prev.slice(0, prev.length - 1).concat([prev[prev.length - 1] + char])
+replaceCursor = (element) ->
+  for childNode in element.childNodes
+    if childNode.nodeType is document.TEXT_NODE
+      match = childNode.textContent.match(/^([^\|]*)\|([^\|]*)$/)
+      if match?
+        cursor = document.createElement("span")
+        cursor.classList.add("code--cursor")
+        element.insertBefore(cursor, childNode)
+
+        element.insertBefore(document.createTextNode(match[1]), cursor)
+
+        childNode.textContent = match[2]
+
+        return true
+
     else
-      prev.concat([char])
-  , []
+      if replaceCursor(childNode)
+        return true
 
-  element.clear().tap (_element) ->
-    for char in chars
-      isCursor = char is "|"
-      isParen = char.match(/[\(\)]/)?
-      isNewline = char is "\n"
-
-      _element
-        .add("span")
-          .addClass("code")
-          .toggleClass("code--cursor", isCursor)
-          .toggleClass("code--paren", isParen)
-          .tap (e) ->
-            if isNewline
-              e.add("br")
-            else if not isCursor
-              e.text(char)
+code = (element, code) ->
+  element.clear().add("code")
+    .addClass("code")
+    .addClass("lisp")
+    .text(code)
+    .tapRaw (block) ->
+      hljs.highlightBlock(block)
+      replaceCursor(block)
 
 ###
 I find myself sometimes trying to use a command to get from the `from` state to

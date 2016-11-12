@@ -50,6 +50,12 @@ factory = (elements) ->
       factory([])
   fn.parent = parent
 
+  # setAttribute = (key, value) ->
+  #   for element in elements
+  #     element.setAttribute(key, value)
+  #   return fn
+  # fn.setAttribute = setAttribute
+
   setId = (id) ->
     if elements.length > 0
       elements[0].id = id
@@ -61,6 +67,12 @@ factory = (elements) ->
       invokee(factory([element]))
     return fn
   fn.tap = tap
+
+  tapRaw = (invokee) ->
+    for element in elements
+      invokee(element)
+    return fn
+  fn.tapRaw = tapRaw
 
   text = (text) ->
     for element in elements

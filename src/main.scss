@@ -128,35 +128,35 @@ body {
   }
 }
 
+@keyframes cursor {
+  0% {
+    opacity: 1;
+  }
+  49% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .code {
-  color: $grey--dark;
+  // Highlight.js overrides
+  background-color: transparent;
 
   &--cursor {
-    border-left: 2px solid black;
-  }
+    position: relative;
 
-  &--name {
-
-  }
-
-  &--string {
-
-  }
-
-  &--number {
-
-  }
-
-  &--symbol {
-
-  }
-
-  &--comment {
-
-  }
-
-  &--paren {
-    // color: blue;
+    &:after {
+      animation: cursor 1s infinite linear;
+      border-left: 2px solid black;
+      content: " ";
+      left: -1px;
+      position: absolute;
+    }
   }
 }
 

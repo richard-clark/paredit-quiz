@@ -1,5 +1,6 @@
 @import '../bower_components/normalize-css/normalize';
 @import '../bower_components/open-sans-fontface/open-sans.scss';
+@import '../node_modules/highlight.js/styles/github-gist';
 
 @mixin default-font {
   font-family: "Open Sans", sans-serif;
