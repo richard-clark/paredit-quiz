@@ -20,8 +20,14 @@ body {
 }
 
 .nav {
+  align-items: center;
   background: $grey--med-light;
-  height: 2em;
+  display: flex;
+  height: 3em;
+
+  &__expander {
+    flex-grow: 1;
+  }
 }
 
 .main {
@@ -31,6 +37,26 @@ body {
   flex-direction: column;
   flex-grow: 1;
   justify-content: center;
+  // So &__message can be positioned at the top
+  position: relative;
+
+  &__message {
+    margin-top: 0.3em;
+    position: absolute;
+    top: 0;
+  }
+}
+
+.message-container {
+  &__message {
+    &--animated {
+      transition: opacity 1.5s ease-in-out;
+    }
+
+    &--fade-out {
+      opacity: 0;
+    }
+  }
 }
 
 .question {
@@ -51,6 +77,16 @@ body {
     }
   }
 
+}
+
+.code-block {
+  &--animated {
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  &--hidden {
+    opacity: 0;
+  }
 }
 
 .code {

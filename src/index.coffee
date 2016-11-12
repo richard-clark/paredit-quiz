@@ -12,37 +12,16 @@ options =
   fixedOrder: false
 
 documentReady = new Observable()
-domActions = new Observable()
 questionDataSource = new QuestionDataSource rawQuestionData,
-  maxPerCommand: maxQuestionsPerCommand
-  maxCount: maxQuestionsPerCommand
-  fixedOrder: fixedOrder
+  maxPerCommand: options.maxQuestionsPerCommand
+  maxCount: options.maxQuestionCount
+  fixedOrder: options.fixedOrder
 questionObservable = new CombineLatestObservable([questionDataSource, documentReady])
 keyPress = new Observable()
 scoreObservable = new Observable()
-toastObservable = new Observable()
-
-kebabToCamelCase = (name) ->
-  name.replace /([^\-])\-([^\-])/g, (_, first, second) ->
-    first + second.toUpperCase()
-
-getEventAttributes = (event) ->
-  element = event.target
-  attributes = {}
-  while element?
-    for {name, value} in element.attributes
-      if name.match(/^eq-/)
-        camelCaseName = kebabToCamelCase(name)
-        attributes[camelCaseName] = value
-    element = element.parent
-  return attributes
 
 document.addEventListener "DOMContentLoaded", () ->
   documentReady.emit(true)
-
-document.addEventListener "click", (event) ->
-  attr = getEventAttributes(event)
-  domActions.emit({attr, event})
 
 getCommandForBinding = (binding) ->
   if binding? and rawQuestionData?
@@ -67,7 +46,7 @@ questionObservable.on ([{index, count, item}]) ->
 score = 0
 scoreObservable.on (pointsToAdd) ->
   score += pointsToAdd
-  document.querySelector("#score").textContent = "Score: #{score}"
+  renderers.score(score)
 documentReady.on () ->
   scoreObservable.emit(0)
 
@@ -77,45 +56,24 @@ questionDataSource.on ({item}) ->
   currentCommands = item.commands
   pointsForQuestion = options.attemptsPerQuestion
 
+SUCCESS_MESSAGES = [
+  "Correct!"
+  "Nice!"
+  "Well Done!"
+]
+
 keyPress.on (command) ->
-  console.log(currentCommands, command)
   if command in currentCommands
     # Success
-    toastObservable.emit
-      message: "Success!"
-      timestamp: new Date()
+    message = SUCCESS_MESSAGES[Math.floor(Math.random() * SUCCESS_MESSAGES.length)]
+    renderers.message(message)
     scoreObservable.emit(pointsForQuestion)
     questionDataSource.next()
   else
     pointsForQuestion = Math.max(pointsForQuestion-1, 0)
 
     if pointsForQuestion > 0
-      toastObservable.emit
-        message: "WRONG!"
-        timestamp: new Date()
+      renderers.message("WRONG!")
     else
-      toastObservable.emit
-        message: "Too many incorrect attempts"
-        timestamp: new Date()
+      renderers.message()
       renderers.hintModalVisibility(true)
-
-showMessage = (message) ->
-  document.querySelector("#message").textContent = message
-
-clearMessage = () ->
-  document.querySelector("#message").textContent = ""
-
-toastTimeout = null
-toastObservable.on ({message, timestamp}) ->
-  if toastTimeout?
-    window.clearTimeout(toastTimeout)
-
-  now = new Date()
-  deltaDate = now - timestamp
-  clearAfter = 3*1000 - deltaDate
-
-  if clearAfter > 0
-    toastTimeout = window.setTimeout () ->
-      clearMessage()
-    , clearAfter
-    showMessage(message)
