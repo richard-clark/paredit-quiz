@@ -1,12 +1,13 @@
 @import "sass/base";
 
-$grey--light: #f0f0f0;
-$grey--med-light: #ddd;
+$blue: #03A9F4;
+$grey--light: #f4f4f4;
 $grey: #bbb;
+$grey--dark: #616161;
 $white: #fff;
 
 html {
-  background: $grey--light;
+  background: $white;
 }
 
 pre {
@@ -21,12 +22,25 @@ body {
 
 .nav {
   align-items: center;
-  background: $grey--med-light;
+  background: $blue;
+  box-shadow: 0 3px 10px #ddd;
+  color: $white;
   display: flex;
-  height: 3em;
+  height: 4em;
+
+  &__title {
+    font-size: 1.5em;
+    font-weight: 300;
+    padding: 0 0.5em;
+  }
 
   &__expander {
     flex-grow: 1;
+  }
+
+  &__metric {
+    font-weight: 300;
+    padding: 0 0.5em;
   }
 }
 
@@ -49,6 +63,12 @@ body {
 
 .message-container {
   &__message {
+    background-color: $grey--dark;
+    color: white;
+    font-size: 1em;
+    margin: 0;
+    padding: 0.5em 2em;
+
     &--animated {
       transition: opacity 1.5s ease-in-out;
     }
@@ -60,23 +80,29 @@ body {
 }
 
 .question {
-  background: $white;
+  background: $grey--light;
+  box-shadow: 3px 3px 10px #ddd;
   min-width: 50%;
 
-  &__prompt {
-    display: block;
-    margin: 2em;
+  &__number {
+    margin: 0;
+    padding: 0.5em;
+    text-align: right;
+  }
+}
 
-    &__code {
-      font-size: 2em;
-    }
+.prompt {
+  display: block;
+  margin: 2em;
 
-    &__description {
-      color: $grey;
-      display: block;
-    }
+  &__code {
+    font-size: 2em;
   }
 
+  &__description {
+    color: $grey;
+    display: block;
+  }
 }
 
 .code-block {
@@ -90,12 +116,34 @@ body {
 }
 
 .code {
+  color: $grey--dark;
+
   &--cursor {
-    border-left: 2px solid red;
+    border-left: 2px solid black;
+  }
+
+  &--name {
+
+  }
+
+  &--string {
+
+  }
+
+  &--number {
+
+  }
+
+  &--symbol {
+
+  }
+
+  &--comment {
+
   }
 
   &--paren {
-    color: blue;
+    // color: blue;
   }
 }
 

@@ -42,8 +42,6 @@ module.exports = class QuestionDataSource extends Observable
         item: @collection[@index]
       emit(event)
 
-    @shuffle()
-
   shuffle: () =>
     @collection = @allItems.map (item) ->
       item

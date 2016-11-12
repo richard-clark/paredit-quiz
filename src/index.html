@@ -12,31 +12,38 @@
       <button>About</button>
       <button>New Game</button>
       <div class="nav__expander"></div>
-      <h3 id="time"></h3>
-      <h3 id="score"></h3>
+      <h3 class="nav__metric" id="time"></h3>
+      <h3 class="nav__metric" id="score"></h3>
     </nav>
     <main class="main">
       <div class="main__message"
         id="message-container"
-      ></div>
-      <span id="question-number"></span>
+      >
+        <p class="message-container__message">
+          Incorrect
+        </p>
+      </div>
       <div class="question">
-        <div class="question__prompt">
-          <span class="question__prompt__description">from this</span>
-          <pre class="question__prompt__code"
+        <div class="prompt">
+          <span class="prompt__description">from this</span>
+          <pre class="prompt__code"
             id="code-from"
           ></pre>
         </div>
-        <div class="question__prompt">
-          <span class="question__prompt__description">to this</span>
-          <pre class="question__prompt__code"
+        <div class="prompt">
+          <span class="prompt__description">to this</span>
+          <pre class="prompt__code"
             id="code-to"
           ></pre>
         </div>
+        <p class="question__number" id="question-number"></p>
       </div>
     </main>
     <div class="modal modal--hidden" id="hint">
       <div id="commands"></div>
+    </div>
+    <div class="modal modal--hidden" id="end-of-game">
+      <h1>Game Over</h1>
     </div>
   </body>
 </html>

@@ -4,11 +4,12 @@ Observable = require("./Observable")
 CombineLatestObservable = require("./CombineLatestObservable")
 keyEventToBinding = require("./keyEventToBinding")
 renderers = require("./renderers")
+TimerObservable = require("./TimerObservable")
 
 options =
   attemptsPerQuestion: 2
   maxQuestionsPerCommand: 2
-  maxQuestionCount: 40
+  maxQuestionCount: 5 # 40
   fixedOrder: false
 
 documentReady = new Observable()
@@ -19,7 +20,7 @@ questionDataSource = new QuestionDataSource rawQuestionData,
 questionObservable = new CombineLatestObservable([questionDataSource, documentReady])
 keyPress = new Observable()
 scoreObservable = new Observable()
-timerObservable = new Observable()
+timerObservable = new TimerObservable()
 
 document.addEventListener "DOMContentLoaded", () ->
   documentReady.emit(true)
@@ -45,38 +46,26 @@ questionObservable.on ([{index, count, item}]) ->
   renderers.hintModal(item, questionDataSource)
 
 score = 0
-scoreObservable.on (pointsToAdd) ->
-  score += pointsToAdd
-  renderers.score(score)
-documentReady.on () ->
-  scoreObservable.emit(0)
-  timerObservable.emit(0)
+currentCommands = []
+pointsForQuestion = 0
 
-timestamp = null
-timestampInterval = null
-startTimer = () ->
-  pauseTimer()
-  timestamp = new Date()
-  timerObservable.emit(0)
-  timestampInterval = window.setInterval () ->
-    now = new Date()
-    delta = now - timestamp
-    timerObservable.emit(delta)
-  , 1000
-pauseTimer = () ->
-  if timestampInterval?
-    window.clearInterval(timestampInterval)
-    timestampInterval = null
+newGame = () ->
+  score = 0
+  scoreObservable.emit(0)
+  questionDataSource.shuffle()
+
+scoreObservable.on (value) ->
+  renderers.score(value)
+
 timerObservable.on (time) ->
   renderers.timer(time)
 
-currentCommands = []
-pointsForQuestion = 0
-timestamp = null
-questionDataSource.on ({item}) ->
+lastQuestion = false
+questionDataSource.on ({item, index, count}) ->
   currentCommands = item.commands
   pointsForQuestion = options.attemptsPerQuestion
-  startTimer()
+  lastQuestion = index is count - 1
+  timerObservable.start()
 
 SUCCESS_MESSAGES = [
   "Correct!"
@@ -85,18 +74,29 @@ SUCCESS_MESSAGES = [
 ]
 
 keyPress.on (command) ->
-  if command in currentCommands
-    # Success
-    message = SUCCESS_MESSAGES[Math.floor(Math.random() * SUCCESS_MESSAGES.length)]
-    renderers.message(message)
-    scoreObservable.emit(pointsForQuestion)
-    questionDataSource.next()
-  else
-    pointsForQuestion = Math.max(pointsForQuestion-1, 0)
+  pointsForQuestion = Math.max(pointsForQuestion-1, 0)
 
+  if command in currentCommands
+    timerObservable.pause()
+
+    if pointsForQuestion > 0
+      # Success
+      message = SUCCESS_MESSAGES[Math.floor(Math.random() * SUCCESS_MESSAGES.length)]
+      renderers.message(message)
+      score += pointsForQuestion
+      scoreObservable.emit(score)
+
+    if lastQuestion
+      console.log("End of game!")
+    else
+      questionDataSource.next()
+  else
     if pointsForQuestion > 0
       renderers.message("WRONG!")
     else
-      pauseTimer()
+      timerObservable.pause()
       renderers.message()
       renderers.hintModalVisibility(true)
+
+documentReady.on () ->
+  newGame()

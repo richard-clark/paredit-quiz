@@ -144,7 +144,7 @@ module.exports =
         "paredit-doublequote"
       ]
       from: "(foo \"bar |baz\" quux)"
-      to: "(foo \"bar \\\"baz\" quux)"
+      to: "(foo \"bar \\\"|baz\" quux)"
     ,
       commands: [
         "paredit-meta-doublequote"
