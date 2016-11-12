@@ -9,8 +9,8 @@
   <body>
     <nav class="nav">
       <h1 class="nav__title">Paredit Quiz</h1>
-      <button>About</button>
-      <button>New Game</button>
+      <button event-on-click="about">About</button>
+      <button event-on-click="new-game">New Game</button>
       <div class="nav__expander"></div>
       <h3 class="nav__metric" id="time"></h3>
       <h3 class="nav__metric" id="score"></h3>
@@ -20,11 +20,51 @@
         id="message-container"
       ></div>
     </main>
-    <div class="modal modal--hidden" id="hint">
-      <div id="commands"></div>
+    <div class="modal-container modal-container--hidden" id="hint">
+      <div class="modal-container__modal modal modal--error">
+        <h1 class="modal__title">
+          Sorry, wrong answer
+        </h1>
+        <h3 class="modal__copy">
+          You can accomplish this task with one of the following commands. Try
+          one now.
+        </h3>
+        <div id="commands"></div>
+      </div>
     </div>
-    <div class="modal modal--hidden" id="end-of-game">
-      <h1>Game Over</h1>
+    <div class="modal-container" id="end-of-game">
+      <div class="modal-container__modal modal modal--success">
+        <h1 class="modal__title">
+          Game Over
+        </h1>
+        <h3 class="modal__copy">
+          You can accomplish this task with one of the following commands. Try
+          one now.
+        </h3>
+        <div class="pie-chart">
+          <div class="pie-chart__data">
+          </div>
+          <ul class="pie-chart__legend legend">
+            <li class="legend__item">
+              <span class="legend__item__key"></span>
+              <span class="legend__item__value">1 (10)</span>
+            </li>
+            <li class="legend__item">
+              <span class="legend__item__key"></span>
+              <span class="legend__item__value">2 (5)</span>
+            </li>
+            <li class="legend__item">
+              <span class="legend__item__key"></span>
+              <span class="legend__item__value">wrong (3)</span>
+            </li>
+          </ul>
+        </div>
+        <div class="modal__buttons">
+          <button class="button" event-on-click="new-game">
+            New Game
+          </button>
+        </div>
+      </div>
     </div>
   </body>
 </html>

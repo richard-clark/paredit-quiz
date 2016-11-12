@@ -1,6 +1,13 @@
 hljs = require("highlight.js")
 rq = require("./rQuery")
 
+###
+TODO:
+- Pass in streams and let logic in this file decide what to do instead of
+  invoking the logic in this file from elsewhere.
+- Animate dialogs.
+###
+
 replaceCursor = (element) ->
   for childNode in element.childNodes
     if childNode.nodeType is document.TEXT_NODE
@@ -96,18 +103,22 @@ hintModal = (question, dataSource) ->
     bindings = dataSource.bindingsForCommand[command]
 
     commands.add("div")
-      .addClass("command")
+      .addClass("modal__section")
       .add("h2")
-        .addClass("command__name")
+        .addClass("modal__subtitle")
         .text(command)
         .parent()
-      .add("command__bindings")
-        .addClass("bindings")
-        .tap (bindingElement) ->
-          for binding in bindings
-            bindingElement.add("span")
-              .addClass("bindings__binding")
-              .text(binding)
+      .tap (element) ->
+        for binding in bindings
+          element.add("ul")
+            # .addClass("command__bindings")
+            .addClass("bindings")
+            .tap (bindingElement) ->
+                keys = binding.split("-")
+                for key in keys
+                  bindingElement.add("li")
+                    .addClass("bindings__binding")
+                    .text(key)
 
 hintModalVisibility = (visible) ->
   rq("#hint")
@@ -140,9 +151,14 @@ timer = (time) ->
 
   rq("#time").text("#{padLeft(minutes)}:#{padLeft(seconds)}")
 
+gameOverModal = ({type}) ->
+  endOfGame = type is "END_OF_GAME"
+  rq("#end-of-game").toggleClass("modal-container--hidden", not endOfGame)
+
 module.exports = {
   hintModal
   hintModalVisibility
+  gameOverModal
   message
   question
   score

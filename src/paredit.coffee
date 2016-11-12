@@ -1,3 +1,5 @@
+# TODO
+# - Un-comment chords once chords are supporteds.
 module.exports =
   categories: [
       name: "Basic Insertion Commands"
@@ -61,7 +63,11 @@ module.exports =
     "paredit-doublequote": ["\""]
     "paredit-meta-doublequote": ["M-\""]
     "paredit-newline": ["C-j"]
-    "paredit-forward-delete": ["C-d", "<delete>", "<deletechar>"]
+    "paredit-forward-delete": [
+      "C-d"
+      "<delete>"
+      "<deletechar>"
+    ]
     "paredit-backward-delete": ["DEL"] # note: backspace
     "paredit-kill": ["C-k"]
     "paredit-forward-kill-word": ["M-d"]
@@ -70,13 +76,27 @@ module.exports =
     "paredit-backward": ["C-M-b"]
     "paredit-wrap-round": ["M-("]
     "paredit-splice-sexp": ["M-s"]
-    "paredit-splice-sexp-killing-backward": ["M-<up>", "ESC <up>"]
-    "paredit-splice-sexp-killing-forward": ["M-<down>", "ESC <down>"]
+    "paredit-splice-sexp-killing-backward": [
+      "M-<up>"
+      # "ESC <up>"
+    ]
+    "paredit-splice-sexp-killing-forward": [
+      "M-<down>"
+      # "ESC <down>"
+    ]
     "paredit-raise-sexp": ["M-r"]
     "paredit-forward-slurp-sexp": ["C-)", "C-<right>"]
     "paredit-forward-barf-sexp": ["C-}", "C-<left>"]
-    "paredit-backward-slurp-sexp": ["C-(", "C-M-<left>", "ESC C-<left>"]
-    "paredit-backward-barf-sexp": ["C-{", "C-M-<right>", "ESC C-<left>"]
+    "paredit-backward-slurp-sexp": [
+      "C-("
+      "C-M-<left>"
+      # "ESC C-<left>"
+    ]
+    "paredit-backward-barf-sexp": [
+      "C-{"
+      "C-M-<right>"
+      # "ESC C-<left>"
+    ]
     "paredit-split-sexp": ["M-S"]
     "paredit-join-sexp": ["M-J"]
   examples: [

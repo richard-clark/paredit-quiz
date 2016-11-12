@@ -1,9 +1,17 @@
 @import "sass/base";
 
+/*
+TODO:
+- Remove unused styles.
+- Remove unused color variables.
+- All colors should be variables.
+*/
+
+$black: #222;
 $blue: #03A9F4;
-$grey--light: #EEEEEE;
-$grey: #bbb;
-$grey--dark: #616161;
+$gray--light: #EEEEEE;
+$gray: #bbb;
+$gray--dark: #616161;
 $white: #fff;
 
 html {
@@ -22,7 +30,7 @@ body {
 
 .nav {
   align-items: center;
-  background: $blue;
+  background: #0277BD;
   box-shadow: 0 3px 10px #ddd;
   color: $white;
   display: flex;
@@ -76,7 +84,7 @@ body {
 
 .message-container {
   &__message {
-    background-color: $grey--dark;
+    background-color: $gray--dark;
     color: white;
     font-size: 1em;
     margin: 0;
@@ -101,14 +109,14 @@ body {
   }
 
   &__code {
-    background: $grey--light;
+    background: $gray--light;
     box-shadow: 3px 3px 10px #ddd;
     font-size: 2em;
     padding: 1em;
   }
 
   &__description {
-    color: $grey--dark;
+    color: $gray--dark;
     display: block;
   }
 
@@ -160,9 +168,8 @@ body {
   }
 }
 
-.modal {
-  background-color: rgba(0,0,0,0.75);
-  color: $white;
+.modal-container {
+  background-color: rgba(0,0,0,0.6);
   position: absolute;
   height: 100%;
   left: 0;
@@ -172,13 +179,143 @@ body {
   &--hidden {
     display: none;
   }
+
+  &__modal {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+  }
+}
+
+.modal {
+  background-color: $white;
+  box-sizing: border-box;
+  padding: 2em;
+
+  &--success {
+    border-top: 10px solid #2196F3;
+  }
+
+  &--warning {
+    border-top: 1px solid #FF9100;
+  }
+
+  &--error {
+    border-top: 10px solid #E53935;
+  }
+
+  &__nav {
+    background-color: $blue;
+    height: 4em;
+  }
+
+  &__title {
+    font-weight: 600;
+    margin: 0;
+  }
+
+  &__subtitle {
+    font-weight: 600;
+    margin: 0;
+  }
+
+  &__copy {
+    font-weight: 400;
+    margin: 0;
+  }
+
+  & > * + * {
+    margin-top: 1em;
+  }
+
+  &__section {
+    margin-left: -2em;
+    margin-right: -2em;
+    padding: 1em 2em;
+
+    &:nth-of-type(1) {
+      background-color: $gray--light;
+    }
+  }
+
+  &__buttons {
+    text-align: center;
+  }
 }
 
 .bindings {
+  list-style-type: none;
+  margin: 0;
+  margin-top: 0.75em;
+  padding: 0;
+
   &__binding {
-    border: 1px solid $grey;
+    background-color: $gray--light;
+    border: 1px solid $gray--dark;
+    display: inline-block;
     font-family: monospace;
-    font-size: 3em;
-    margin: 0.3em;
+    font-size: 2em;
+    padding: 0 0.3em;
+    padding-bottom: 0.1em;
   }
+
+  &__binding + &__binding {
+    margin-left: 5px;
+  }
+}
+
+.pie-chart {
+  margin-bottom: 2em;
+
+  .pie-chart__data {
+    background-color: red;
+    height: 3em;
+  }
+
+  .pie-chart__data + .pie-chart__legend {
+    margin-top: 1em;
+  }
+}
+
+.legend {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  &__item {
+    align-items: center;
+    display: flex;
+    flex-grow: 1;
+
+    &__key {
+      background-color: red;
+      display: block;
+      height: 1em;
+      margin-right: 0.3em;
+      width: 1em;
+    }
+  }
+
+}
+
+.button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  outline: none;
+  padding: 0.75em 1em;
+  text-transform: uppercase;
+
+  &:focus {
+    background-color: #aaa;
+  }
+
+  &:active {
+    background-color: #888;
+  }
+
 }

@@ -21,9 +21,19 @@ questionObservable = new CombineLatestObservable([questionDataSource, documentRe
 keyPress = new Observable()
 scoreObservable = new Observable()
 timerObservable = new TimerObservable()
+gameLifecycle = new Observable()
+userEvents = new Observable()
 
 document.addEventListener "DOMContentLoaded", () ->
   documentReady.emit(true)
+
+document.addEventListener "click", (event) ->
+  element = event.target
+  while element?
+    if element.hasAttribute("event-on-click")
+      userEvents.emit(element.getAttribute('event-on-click'))
+      return
+    element = element.parentElement
 
 getCommandForBinding = (binding) ->
   if binding? and rawQuestionData?
@@ -49,10 +59,11 @@ score = 0
 currentCommands = []
 pointsForQuestion = 0
 
-newGame = () ->
-  score = 0
-  scoreObservable.emit(0)
-  questionDataSource.shuffle()
+gameLifecycle.on ({type}) ->
+  if type is "NEW_GAME"
+    score = 0
+    scoreObservable.emit(0)
+    questionDataSource.shuffle()
 
 scoreObservable.on (value) ->
   renderers.score(value)
@@ -87,7 +98,10 @@ keyPress.on (command) ->
       scoreObservable.emit(score)
 
     if lastQuestion
-      console.log("End of game!")
+      endOfGameEvent =
+        type: "END_OF_GAME"
+        score: score
+      gameLifecycle.emit(endOfGameEvent)
     else
       questionDataSource.next()
   else
@@ -98,5 +112,13 @@ keyPress.on (command) ->
       renderers.message()
       renderers.hintModalVisibility(true)
 
+gameLifecycle.on (event) ->
+  renderers.gameOverModal(event)
+
 documentReady.on () ->
-  newGame()
+  gameLifecycle.emit({type: "NEW_GAME"})
+
+userEvents.on (event) ->
+  switch event
+    when "new-game"
+      gameLifecycle.emit({type: "NEW_GAME"})
