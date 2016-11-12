@@ -45,19 +45,32 @@ body {
 }
 
 .main {
-  align-content: center;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
   flex-grow: 1;
-  justify-content: center;
-  // So &__message can be positioned at the top
+  overflow: hidden;
   position: relative;
 
-  &__message {
+  &__message-container {
+    left: 50%;
     margin-top: 0.3em;
     position: absolute;
     top: 0;
+    transform: translateX(-50%);
+  }
+
+  &__question {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: left 0.5s ease-in-out;
+
+    &--future {
+      left: 150%;
+    }
+
+    &--completed {
+      left: -50%;
+    }
   }
 }
 
@@ -76,15 +89,6 @@ body {
     &--fade-out {
       opacity: 0;
     }
-  }
-}
-
-.question {
-  &__number {
-    color: $grey--dark;
-    margin: 0;
-    padding: 0.5em;
-    text-align: right;
   }
 }
 
@@ -107,11 +111,16 @@ body {
     color: $grey--dark;
     display: block;
   }
+
+  &__description + &__code {
+    margin-top: 0.2em;
+  }
+
 }
 
 .code-block {
   &--animated {
-    transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.8s ease-in-out;
   }
 
   &--hidden {

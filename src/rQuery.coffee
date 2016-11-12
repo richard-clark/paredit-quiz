@@ -1,7 +1,7 @@
 factory = (elements) ->
   fn = {}
 
-  add = (tagName) ->
+  add = (tagName="div") ->
     childElements = elements.map (element) ->
       childElement = document.createElement(tagName)
       element.appendChild(childElement)
@@ -31,6 +31,12 @@ factory = (elements) ->
     return factory(allMatches)
   fn.find = find
 
+  remove = () ->
+    for element in elements
+      element.remove()
+    return fn
+  fn.remove = remove
+
   removeClass = (cls) ->
     for element in elements
       element.classList.remove(cls)
@@ -43,6 +49,12 @@ factory = (elements) ->
     else
       factory([])
   fn.parent = parent
+
+  setId = (id) ->
+    if elements.length > 0
+      elements[0].id = id
+    return fn
+  fn.setId = setId
 
   tap = (invokee) ->
     for element in elements

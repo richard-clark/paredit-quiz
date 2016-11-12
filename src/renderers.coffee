@@ -38,20 +38,52 @@ showToTimeout = null
 question = (index, count, question) ->
   if showToTimeout?
     window.clearTimeout(showToTimeout)
-  rq("#question-number")
-    .text("Question #{index+1} of #{count}")
-  rq("#code-from").tap (element) ->
-    code(element, question.from)
-  rq("#code-to")
-    .removeClass("code-block--animated")
-    .tap (element) ->
-      element.addClass("code-block--hidden")
-      code(element, question.to)
-  showToTimeout = window.setTimeout () ->
-    rq("#code-to")
-      .addClass("code-block--animated")
-      .removeClass("code-block--hidden")
-  , 0.2*1000
+
+  rq("#previous-question").remove()
+
+  rq("#question")
+    .addClass("main__question--completed")
+    .setId("previous-question")
+
+  rq("#main")
+    .add()
+      .setId("question")
+      .addClass("main__question")
+      .addClass("main__question--future")
+      .tap (element) ->
+        window.setTimeout () ->
+          element.removeClass("main__question--future")
+        , 100
+      .addClass("question")
+      .add()
+        .addClass("prompt")
+        .add("span")
+          .addClass("prompt__description")
+          .text("transform this")
+          .parent()
+        .add("pre")
+          .addClass("prompt__code")
+          .tap (element) ->
+            code(element, question.from)
+          .parent()
+        .parent()
+      .add()
+        .addClass("prompt")
+        .add("span")
+          .addClass("prompt__description")
+          .text("to this")
+          .parent()
+        .add("pre")
+          .addClass("prompt__code")
+          .tap (element) ->
+            code(element, question.to)
+            element.addClass("code-block--hidden")
+            showToTimeout = window.setTimeout () ->
+              element.addClass("code-block--animated")
+                .removeClass("code-block--hidden")
+            , 0.2*1000
+          .parent()
+        .parent()
 
 hintModal = (question, dataSource) ->
   commands = rq("#commands").clear()
