@@ -1,7 +1,7 @@
 @import "sass/base";
 
 $blue: #03A9F4;
-$grey--light: #f4f4f4;
+$grey--light: #EEEEEE;
 $grey: #bbb;
 $grey--dark: #616161;
 $white: #fff;
@@ -80,11 +80,8 @@ body {
 }
 
 .question {
-  background: $grey--light;
-  box-shadow: 3px 3px 10px #ddd;
-  min-width: 50%;
-
   &__number {
+    color: $grey--dark;
     margin: 0;
     padding: 0.5em;
     text-align: right;
@@ -93,14 +90,21 @@ body {
 
 .prompt {
   display: block;
-  margin: 2em;
+  min-width: 50%;
+
+  & + .prompt {
+    margin-top: 2em;
+  }
 
   &__code {
+    background: $grey--light;
+    box-shadow: 3px 3px 10px #ddd;
     font-size: 2em;
+    padding: 1em;
   }
 
   &__description {
-    color: $grey;
+    color: $grey--dark;
     display: block;
   }
 }
