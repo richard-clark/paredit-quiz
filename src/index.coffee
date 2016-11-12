@@ -19,6 +19,7 @@ questionDataSource = new QuestionDataSource rawQuestionData,
 questionObservable = new CombineLatestObservable([questionDataSource, documentReady])
 keyPress = new Observable()
 scoreObservable = new Observable()
+timerObservable = new Observable()
 
 document.addEventListener "DOMContentLoaded", () ->
   documentReady.emit(true)
@@ -49,12 +50,33 @@ scoreObservable.on (pointsToAdd) ->
   renderers.score(score)
 documentReady.on () ->
   scoreObservable.emit(0)
+  timerObservable.emit(0)
+
+timestamp = null
+timestampInterval = null
+startTimer = () ->
+  pauseTimer()
+  timestamp = new Date()
+  timerObservable.emit(0)
+  timestampInterval = window.setInterval () ->
+    now = new Date()
+    delta = now - timestamp
+    timerObservable.emit(delta)
+  , 1000
+pauseTimer = () ->
+  if timestampInterval?
+    window.clearInterval(timestampInterval)
+    timestampInterval = null
+timerObservable.on (time) ->
+  renderers.timer(time)
 
 currentCommands = []
 pointsForQuestion = 0
+timestamp = null
 questionDataSource.on ({item}) ->
   currentCommands = item.commands
   pointsForQuestion = options.attemptsPerQuestion
+  startTimer()
 
 SUCCESS_MESSAGES = [
   "Correct!"
@@ -75,5 +97,6 @@ keyPress.on (command) ->
     if pointsForQuestion > 0
       renderers.message("WRONG!")
     else
+      pauseTimer()
       renderers.message()
       renderers.hintModalVisibility(true)

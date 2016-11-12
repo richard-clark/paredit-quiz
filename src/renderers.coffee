@@ -95,10 +95,21 @@ message = (text) ->
 score = (value) ->
   rq("#score").text("Score: #{value}")
 
+padLeft = (str, length=2, padChar="0") ->
+  [0...Math.max(length - "#{str}".length, 0)].map(->padChar).join("") + str
+
+timer = (time) ->
+  totalSeconds = Math.round(time / 1000)
+  seconds = totalSeconds % 60
+  minutes = Math.floor(totalSeconds / 60)
+
+  rq("#time").text("#{padLeft(minutes)}:#{padLeft(seconds)}")
+
 module.exports = {
   hintModal
   hintModalVisibility
   message
   question
   score
+  timer
 }
