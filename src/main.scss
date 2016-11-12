@@ -170,14 +170,23 @@ body {
 
 .modal-container {
   background-color: rgba(0,0,0,0.6);
+  display: none;
   position: absolute;
   height: 100%;
   left: 0;
   top: 0;
   width: 100%;
 
-  &--hidden {
-    display: none;
+  &--animated &__modal {
+    transition: top 0.5s ease-in-out;
+  }
+
+  &--visible {
+    display: block;
+  }
+
+  &--off-screen .modal-container__modal {
+    top: -50%;
   }
 
   &__modal {

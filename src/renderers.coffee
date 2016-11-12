@@ -6,6 +6,15 @@ TODO:
 - Pass in streams and let logic in this file decide what to do instead of
   invoking the logic in this file from elsewhere.
 - Animate dialogs.
+- Fix instances where highlighting is incorrect due to cursor. (See #1 below.)
+
+Issue #1:
+
+Given `(qux|x)` as input, when rendered, `qux` is treated as a function, and `x`
+as a name. `x` should also be treated as a function. (Possible solution: figure
+out cursor index, remove it from code string, highlight code, then add a cursor
+element based on index.)
+
 ###
 
 replaceCursor = (element) ->
@@ -120,9 +129,27 @@ hintModal = (question, dataSource) ->
                     .addClass("bindings__binding")
                     .text(key)
 
+modalTimeout = null
+toggleModalVisibility = (element, visible) ->
+  if modalTimeout?
+    window.clearTimeout(modalTimeout)
+    modalTimeout = null
+
+  if visible
+    element.removeClass("modal-container--animated")
+      .addClass("modal-container--off-screen")
+      .addClass("modal-container--visible")
+      .tap (element) ->
+        modalTimeout = window.setInterval () ->
+          element.addClass("modal-container--animated")
+            .removeClass("modal-container--off-screen")
+        , 100
+
+  else
+    element.removeClass("modal-container--visible")
+
 hintModalVisibility = (visible) ->
-  rq("#hint")
-    .toggleClass("modal--hidden", not visible)
+  toggleModalVisibility(rq("#hint"), visible)
 
 message = (text) ->
   rq("#message-container").clear()
@@ -153,7 +180,7 @@ timer = (time) ->
 
 gameOverModal = ({type}) ->
   endOfGame = type is "END_OF_GAME"
-  rq("#end-of-game").toggleClass("modal-container--hidden", not endOfGame)
+  toggleModalVisibility(rq("#end-of-game"), endOfGame)
 
 module.exports = {
   hintModal
