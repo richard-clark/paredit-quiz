@@ -23,4 +23,8 @@ class GameStats
       return _responsesByPoints
     , {}
 
+  getGrade: () =>
+    if @responses.length > 0
+      @getScore() / (@responses.length * 2)
+
 module.exports = GameStats

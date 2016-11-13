@@ -73,7 +73,7 @@ responses = new GameStats()
 gameLifecycle.on ({type}) ->
   if type is "NEW_GAME"
     responses = new GameStats()
-    scoreObservable.emit(responses.getScore())
+    scoreObservable.emit(responses.getGrade())
     questionDataSource.shuffle()
 
 new navUi.Score(scoreObservable)
@@ -111,7 +111,7 @@ keyPress.on (command) ->
 gameLifecycle.on (event) ->
   if event.type is "CORRECT_RESPONSE"
     responses.addResponse(event)
-    scoreObservable.emit(responses.getScore())
+    scoreObservable.emit(responses.getGrade())
 
 # Clear timer on incorrect response
 gameLifecycle.on (event) ->

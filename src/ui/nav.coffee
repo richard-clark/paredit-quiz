@@ -3,7 +3,12 @@ rq = require("../rQuery")
 class Score
   constructor: (observable) ->
     observable.on (value) ->
-      rq("#score").text("Score: #{value}")
+      if value?
+        text = "Score: #{Math.round(value*100)}%"
+      else
+        text = "Score: --"
+
+      rq("#score").text(text)
 
 padLeft = (str, length=2, padChar="0") ->
   [0...Math.max(length - "#{str}".length, 0)].map(->padChar).join("") + str

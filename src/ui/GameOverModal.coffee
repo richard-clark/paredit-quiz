@@ -41,7 +41,7 @@ class GameOverModal extends AbstractModal
     observable.on ({type, responses}) =>
       if type is "END_OF_GAME"
         score = responses.getScore()
-        rating = score / (responses.responses.length * 2)
+        rating = responses.getGrade()
         averageTime = Math.round(responses.getAverageTime() / 10) / 100
 
         element = rq("#end-of-game")
