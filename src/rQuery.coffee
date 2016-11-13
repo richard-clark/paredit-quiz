@@ -31,6 +31,11 @@ factory = (elements) ->
     return factory(allMatches)
   fn.find = find
 
+  matches = (selector) ->
+    elements.every (element) ->
+      element.matches(selector)
+  fn.matches = matches
+
   remove = () ->
     for element in elements
       element.remove()
@@ -49,12 +54,6 @@ factory = (elements) ->
     else
       factory([])
   fn.parent = parent
-
-  # setAttribute = (key, value) ->
-  #   for element in elements
-  #     element.setAttribute(key, value)
-  #   return fn
-  # fn.setAttribute = setAttribute
 
   setId = (id) ->
     if elements.length > 0

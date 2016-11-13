@@ -154,6 +154,9 @@ body {
 .code {
   // Highlight.js overrides
   background-color: transparent;
+  // Ensure the block is always at least one line high
+  line-height: 1.15; // default
+  min-height: 1.15em; // must match line height
 
   &--cursor {
     position: relative;
