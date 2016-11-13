@@ -7,11 +7,20 @@ TODO:
 - support chords (sequences of keys)
 ###
 
-module.exports = ({code, altKey, ctrlKey, shiftKey}) ->
+module.exports = (options, event) ->
+  {code, shiftKey} = event
+
+  command = event[options.keyBindings?.command ? "metaKey"]
+  ctrl = event[options.keyBindings?.ctrl ? "ctrlKey"]
+  meta = event[options.keyBindings?.meta ? "altKey"]
+
+  # Don't consume the browser's shortcuts.
+  return if command
+
   modifiers = ""
-  if ctrlKey
+  if ctrl
     modifiers += "C-"
-  if altKey
+  if meta
     modifiers += "M-"
 
   CHAR_FOR_KEY =

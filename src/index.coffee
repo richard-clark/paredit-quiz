@@ -10,7 +10,6 @@ GameStats = require("./GameStats")
 TODO:
 - Keys that don't map to commands that are successfully consumed (e.g. `C-r`)
   should be treated as incorrect input instead of ignored.
-
 ###
 
 navUi = require("./ui/nav")
@@ -24,6 +23,11 @@ options =
   maxQuestionsPerCommand: 2
   maxQuestionCount: 10 # 40
   fixedOrder: false
+  keyBindings:
+    # Swap the properties as necessary--this works for OSX.
+    command: "metaKey"
+    ctrl: "ctrlKey"
+    meta: "altKey"
 
 documentReady = new Observable()
 questionDataSource = new QuestionDataSource rawQuestionData,
@@ -55,10 +59,9 @@ getCommandForBinding = (binding) ->
         return command
 
 window.addEventListener "keydown", (event) ->
-  binding = keyEventToBinding(event)
-  command = getCommandForBinding(binding)
-  if command?
-    keyPress.emit(command)
+  binding = keyEventToBinding(options, event)
+  if binding?
+    keyPress.emit(binding)
     event.preventDefault()
     event.stopPropagation()
     return false
@@ -92,8 +95,9 @@ questionDataSource.on ({item, index, count}) ->
   timerObservable.start()
 
 # Dispatch a response event when a command is entered
-keyPress.on (command) ->
-  if command in currentCommands
+keyPress.on (binding) ->
+  command = getCommandForBinding(binding)
+  if command? and command in currentCommands
     # Valid response
     gameLifecycle.emit
       type: "CORRECT_RESPONSE"
