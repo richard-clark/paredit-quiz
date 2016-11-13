@@ -8,34 +8,30 @@ TODO:
 - better states for button focus and hover
 */
 
-$black: #222;
-// $green: #03A9F4;
-$green: #00C853;
+$black--semi-transparent: transparentize($black, 0.5);
+$black: #000;
+$blue--light: #4FC3F7;
+$blue--lighter: #B3E5FC;
+$blue-gray--light: #455A64;
+$blue-gray--lighter: #263238;
+$blue-gray: #607D8B;
+$blue: #2196F3;
+$gray--dark: #616161;
 $gray--light: #EEEEEE;
 $gray: #bbb;
-$gray--dark: #616161;
-$white: #fff;
-
-$blue: #2196F3;
-$yellow: #FF9100;
+$green: #00C853;
 $red: #E53935;
-$blue--dark: #0277BD;
-$blue-gray: #607D8B;
+$white: #fff;
+$yellow: #FF9100;
 
 $font-size--normal: 1em;
 $font-size--medium: 1.15em;
 $font-size--large: 1.5em;
 $font-size--larger: 2.5em;
 
-
-
 html {
   background: $white;
   font-size: 16px;
-}
-
-pre {
-  margin: 0;
 }
 
 body {
@@ -126,6 +122,7 @@ body {
   &__code {
     background: $gray--light;
     font-size: 2em;
+    margin: 0;
     padding: 1em;
   }
 
@@ -177,7 +174,7 @@ body {
 
     &:after {
       animation: cursor 1s infinite linear;
-      border-left: 2px solid black;
+      border-left: 2px solid $black;
       content: " ";
       left: -1px;
       position: absolute;
@@ -186,7 +183,7 @@ body {
 }
 
 .modal-container {
-  background-color: rgba(0,0,0,0.5);
+  background-color: $black--semi-transparent;
   display: none;
   position: absolute;
   height: 100%;
@@ -386,7 +383,6 @@ body {
       }
     }
   }
-
 }
 
 .button {
@@ -396,24 +392,26 @@ body {
   cursor: pointer;
   font-weight: 600;
   outline: none;
-  padding: 0.75em 1em;
+  padding: 1.25em 2em;
   text-transform: uppercase;
 
   &:focus {
-    background-color: #aaa;
+    background-color: $blue--lighter;
   }
 
   &:active {
-    background-color: #888;
+    background-color: $blue--light;
   }
 
   &--nav {
+    padding: 0.75em 1em;
+
     &:focus {
-      background-color: #455A64;
+      background-color: $blue-gray--lighter;
     }
 
     &:active {
-      background-color: #263238;
+      background-color: $blue-gray--light;
     }
   }
 

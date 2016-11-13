@@ -17,7 +17,13 @@ class Timer
 
       rq("#time").text("#{padLeft(minutes)}:#{padLeft(seconds)}")
 
+class QuestionIndex
+  constructor: (questionObservable) ->
+    questionObservable.on ([{index, count}]) ->
+      rq("#question-index").text("#{index+1} / #{count}")
+
 module.exports = {
+  QuestionIndex
   Score
   Timer
 }

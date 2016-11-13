@@ -24,7 +24,7 @@ WrongAnswerModalUi = require("./ui/WrongAnswerModal")
 options =
   attemptsPerQuestion: 2
   maxQuestionsPerCommand: 2
-  maxQuestionCount: 40 # 40
+  maxQuestionCount: 10 # 40
   fixedOrder: false
 
 documentReady = new Observable()
@@ -78,6 +78,7 @@ gameLifecycle.on ({type}) ->
 
 new navUi.Score(scoreObservable)
 new navUi.Timer(timerObservable)
+new navUi.QuestionIndex(questionObservable)
 new QuestionUi(questionObservable)
 new GameOverModalUi(gameLifecycle)
 new ToastUi(gameLifecycle)
