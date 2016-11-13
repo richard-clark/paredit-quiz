@@ -1,5 +1,5 @@
 # TODO
-# - Un-comment chords once chords are supporteds.
+# - Un-comment chords once chords are supported.
 module.exports =
   categories: [
       name: "Basic Insertion Commands"
@@ -367,7 +367,7 @@ module.exports =
         "paredit-splice-sexp-killing-backward"
       ]
       from: "(a (b c| d e) f)"
-      to: "(a d e f)"
+      to: "(a | d e f)"
     ,
       commands: [
         "paredit-splice-sexp-killing-forward"

@@ -65,11 +65,11 @@ gameLifecycle.on ({type}) ->
     scoreObservable.emit(0)
     questionDataSource.shuffle()
 
-scoreObservable.on (value) ->
-  renderers.score(value)
+new renderers.Score(scoreObservable)
 
-timerObservable.on (time) ->
-  renderers.timer(time)
+new renderers.Timer(timerObservable)
+
+new renderers.GameOverModal(gameLifecycle)
 
 lastQuestion = false
 questionDataSource.on ({item, index, count}) ->
@@ -92,8 +92,6 @@ keyPress.on (command) ->
 
     if pointsForQuestion > 0
       # Success
-      message = SUCCESS_MESSAGES[Math.floor(Math.random() * SUCCESS_MESSAGES.length)]
-      renderers.message(message)
       score += pointsForQuestion
       scoreObservable.emit(score)
 
@@ -103,6 +101,8 @@ keyPress.on (command) ->
         score: score
       gameLifecycle.emit(endOfGameEvent)
     else
+      message = SUCCESS_MESSAGES[Math.floor(Math.random() * SUCCESS_MESSAGES.length)]
+      renderers.message(message)
       questionDataSource.next()
   else
     if pointsForQuestion > 0
@@ -111,9 +111,6 @@ keyPress.on (command) ->
       timerObservable.pause()
       renderers.message()
       renderers.hintModalVisibility(true)
-
-gameLifecycle.on (event) ->
-  renderers.gameOverModal(event)
 
 documentReady.on () ->
   gameLifecycle.emit({type: "NEW_GAME"})

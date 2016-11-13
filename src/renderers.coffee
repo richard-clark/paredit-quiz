@@ -5,7 +5,6 @@ rq = require("./rQuery")
 TODO:
 - Pass in streams and let logic in this file decide what to do instead of
   invoking the logic in this file from elsewhere.
-- Animate dialogs.
 - Fix instances where highlighting is incorrect due to cursor. (See #1 below.)
 
 Issue #1:
@@ -165,29 +164,35 @@ message = (text) ->
             e.addClass("message-container__message--fade-out")
           , 500
 
-score = (value) ->
-  rq("#score").text("Score: #{value}")
+class Score
+  constructor: (observable) ->
+    observable.on (value) ->
+      rq("#score").text("Score: #{value}")
 
 padLeft = (str, length=2, padChar="0") ->
   [0...Math.max(length - "#{str}".length, 0)].map(->padChar).join("") + str
 
-timer = (time) ->
-  totalSeconds = Math.round(time / 1000)
-  seconds = totalSeconds % 60
-  minutes = Math.floor(totalSeconds / 60)
+class Timer
+  constructor: (observable) ->
+    observable.on (time) ->
+      totalSeconds = Math.round(time / 1000)
+      seconds = totalSeconds % 60
+      minutes = Math.floor(totalSeconds / 60)
 
-  rq("#time").text("#{padLeft(minutes)}:#{padLeft(seconds)}")
+      rq("#time").text("#{padLeft(minutes)}:#{padLeft(seconds)}")
 
-gameOverModal = ({type}) ->
-  endOfGame = type is "END_OF_GAME"
-  toggleModalVisibility(rq("#end-of-game"), endOfGame)
+class GameOverModal
+  constructor: (observable) ->
+    observable.on ({type}) ->
+      endOfGame = type is "END_OF_GAME"
+      toggleModalVisibility(rq("#end-of-game"), endOfGame)
 
 module.exports = {
   hintModal
   hintModalVisibility
-  gameOverModal
+  GameOverModal
   message
   question
-  score
-  timer
+  Score
+  Timer
 }
