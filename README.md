@@ -6,7 +6,7 @@ This is a simple web application for building proficiency with [Paredit](https:/
 
 The app will present you with a series of questions (in random order). A question has two snippets of Lisp code, with the current cursor position indicated. The goal is to get from the first code snippet (`transform this`) to the second (`to this`) using a single Paredit.
 
-By default, the Meta key (`M-`) corresponds to whatever key sets the [`altKey`](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/altKey) property for a keyboard event in your browser. The Ctrl key (`C-`) is triggered by the [`ctrlKey`](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/ctrlKey) property.
+By default, the Meta key (`M-`) corresponds to whatever key sets the [`altKey`](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/altKey) property for a keyboard event in your browser. The Ctrl key (`C-`) is triggered by the [`ctrlKey`](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/ctrlKey) property. (You can change this behavior by updating `options.keyBindings` in `index.coffee`.)
 
 The majority of these examples come from the [Paredit Reference Card (pdf)](http://pub.gajendra.net/src/paredit-refcard.pdf), with a couple of additions. Some questions have multiple possible solutions. In this case, any solution is valid.
 
