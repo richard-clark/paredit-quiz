@@ -5,6 +5,7 @@ TODO:
 - Remove unused styles.
 - Remove unused color variables.
 - All colors should be variables.
+- better states for button focus and hover
 */
 
 $black: #222;
@@ -19,11 +20,14 @@ $blue: #2196F3;
 $yellow: #FF9100;
 $red: #E53935;
 $blue--dark: #0277BD;
+$blue-gray: #607D8B;
 
 $font-size--normal: 1em;
 $font-size--medium: 1.15em;
 $font-size--large: 1.5em;
 $font-size--larger: 2.5em;
+
+
 
 html {
   background: $white;
@@ -41,9 +45,8 @@ body {
 }
 
 .nav {
-  align-items: center;
-  background: $blue--dark;
-  box-shadow: 0 3px 10px #ddd;
+  align-items: baseline;
+  background: $blue-gray;
   color: $white;
   display: flex;
   height: 4em;
@@ -122,7 +125,6 @@ body {
 
   &__code {
     background: $gray--light;
-    box-shadow: 3px 3px 10px #ddd;
     font-size: 2em;
     padding: 1em;
   }
@@ -184,7 +186,7 @@ body {
 }
 
 .modal-container {
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(0,0,0,0.5);
   display: none;
   position: absolute;
   height: 100%;
@@ -216,7 +218,6 @@ body {
 .modal {
   background-color: $white;
   border-top: 10px solid $blue;
-  box-sizing: border-box;
   padding: 2em;
 
   &--success {
@@ -391,6 +392,7 @@ body {
 .button {
   background: none;
   border: none;
+  color: inherit;
   cursor: pointer;
   font-weight: 600;
   outline: none;
@@ -403,6 +405,16 @@ body {
 
   &:active {
     background-color: #888;
+  }
+
+  &--nav {
+    &:focus {
+      background-color: #455A64;
+    }
+
+    &:active {
+      background-color: #263238;
+    }
   }
 
 }
