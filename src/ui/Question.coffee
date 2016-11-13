@@ -1,48 +1,44 @@
 hljs = require("highlight.js")
 rq = require("../rQuery")
 
-###
-TODO:
-- Pass in streams and let logic in this file decide what to do instead of
-  invoking the logic in this file from elsewhere.
-- Fix instances where highlighting is incorrect due to cursor. (See #1 below.)
+replaceCursor = (element, cursorIndex, startIndex=0) ->
+  index = startIndex
 
-Issue #1:
-
-Given `(qux|x)` as input, when rendered, `qux` is treated as a function, and `x`
-as a name. `x` should also be treated as a function. (Possible solution: figure
-out cursor index, remove it from code string, highlight code, then add a cursor
-element based on index.)
-
-###
-
-replaceCursor = (element) ->
   for childNode in element.childNodes
     if childNode.nodeType is document.TEXT_NODE
-      match = childNode.textContent.match(/^([^\|]*)\|([^\|]*)$/)
-      if match?
+      if index <= cursorIndex <= index + childNode.textContent.length
+        originalContentLength = childNode.textContent.length
+
+        pre = childNode.textContent.substr(0, cursorIndex - index)
+        post = childNode.textContent.substr(cursorIndex - index, childNode.textContent.length)
+
         cursor = document.createElement("span")
         cursor.classList.add("code--cursor")
         element.insertBefore(cursor, childNode)
 
-        element.insertBefore(document.createTextNode(match[1]), cursor)
+        element.insertBefore(document.createTextNode(pre), cursor)
+        childNode.textContent = post
 
-        childNode.textContent = match[2]
-
-        return true
+        index += originalContentLength
+      else
+        index += childNode.textContent.length
 
     else
-      if replaceCursor(childNode)
-        return true
+      index = replaceCursor(childNode, cursorIndex, index)
+
+  return index
 
 code = (element, code) ->
+  cursorIndex = code.indexOf("|")
+  code = code.replace("|", "")
+
   element.clear().add("code")
     .addClass("code")
     .addClass("lisp")
     .text(code)
     .tapRaw (block) ->
       hljs.highlightBlock(block)
-      replaceCursor(block)
+      replaceCursor(block, cursorIndex)
 
 ###
 I find myself sometimes trying to use a command to get from the `from` state to
