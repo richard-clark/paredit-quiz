@@ -1,15 +1,7 @@
 @import "sass/base";
 
-/*
-TODO:
-- Remove unused styles.
-- Remove unused color variables.
-- All colors should be variables.
-- better states for button focus and hover
-*/
-
-$black--semi-transparent: transparentize($black, 0.5);
 $black: #000;
+$black--semi-transparent: transparentize($black, 0.5);
 $blue--light: #4FC3F7;
 $blue--lighter: #B3E5FC;
 $blue-gray--light: #455A64;

@@ -33,6 +33,7 @@ module.exports = class QuestionDataSource extends Observable
     , {}
     @bindingsForCommand = rawQuestionData.bindings
     @allItems = rawQuestionData.examples
+    @lastShuffle = null
 
     emit = @emit
     @emit = () =>
@@ -42,12 +43,13 @@ module.exports = class QuestionDataSource extends Observable
         item: @collection[@index]
       emit(event)
 
-  shuffle: () =>
-    @collection = @allItems.map (item) ->
-      item
+  restart: (shouldShuffle=false) =>
+    if not @options.fixedOrder and shouldShuffle
+      @lastShuffle = @allItems.map (item) ->
+        item
+      @lastShuffle = shuffle(@lastShuffle)
 
-    unless @options.fixedOrder
-      @collection = shuffle(@collection)
+    @collection = @lastShuffle ? @allItems
 
     if @options.maxPerCommand?
       countPerCommand = {}
@@ -68,6 +70,9 @@ module.exports = class QuestionDataSource extends Observable
     @index = 0
     @emit()
 
+  shuffle: () =>
+    @restart(true)
+
   next: () =>
     if @index < @collection.length - 1
       @index++
@@ -77,8 +82,3 @@ module.exports = class QuestionDataSource extends Observable
     if @index > 0
       @index--
       @emit()
-
-  restart: () =>
-    return unless @index > 0
-    @index = 0
-    @emit()

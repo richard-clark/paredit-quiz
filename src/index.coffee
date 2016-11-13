@@ -70,11 +70,14 @@ pointsForQuestion = 0
 lastQuestion = false
 responses = new GameStats()
 
-gameLifecycle.on ({type}) ->
+gameLifecycle.on ({type, restart}) ->
   if type is "NEW_GAME"
     responses = new GameStats()
     scoreObservable.emit(responses.getGrade())
-    questionDataSource.shuffle()
+    if restart
+      questionDataSource.restart()
+    else
+      questionDataSource.shuffle()
 
 new navUi.Score(scoreObservable)
 new navUi.Timer(timerObservable)
@@ -136,6 +139,8 @@ userEvents.on (event) ->
   switch event
     when "new-game"
       gameLifecycle.emit({type: "NEW_GAME"})
+    when "restart"
+      gameLifecycle.emit({type: "NEW_GAME", restart: true})
 
 # Start a new game when the document is loaded
 documentReady.on () ->

@@ -10,14 +10,14 @@
     <nav class="nav">
       <h1 class="nav__title">Paredit Quiz</h1>
       <button class="button button--nav"
-        event-on-click="about"
-      >
-        About
-      </button>
-      <button class="button button--nav"
         event-on-click="new-game"
       >
         New Game
+      </button>
+      <button class="button button--nav"
+        event-on-click="restart"
+      >
+        Restart
       </button>
       <div class="nav__expander"></div>
       <h3 class="nav__metric" id="question-index"></h3>
@@ -92,7 +92,7 @@
             New Game
           </button>
           <button class="button" event-on-click="restart">
-            Try Again
+            Restart
           </button>
         </div>
       </div>
