@@ -120,7 +120,7 @@ gameLifecycle.on (event) ->
 
 # Clear timer on incorrect response
 gameLifecycle.on (event) ->
-  if event.type is "INCORRECT_RESPONSE"
+  if event.type is "INCORRECT_RESPONSE" and pointsForQuestion is 0
     timerObservable.pause()
 
 # End game if this is the last question
