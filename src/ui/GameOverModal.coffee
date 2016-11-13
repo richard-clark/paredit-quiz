@@ -58,6 +58,9 @@ class GameOverModal extends AbstractModal
         element.find(".modal__copy").text(message)
 
         scalars = [
+            title: "Questions"
+            value: responses.responses.length
+          ,
             title: "Score"
             value: "#{Math.round(rating * 100)}%"
           ,

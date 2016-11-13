@@ -24,8 +24,8 @@ WrongAnswerModalUi = require("./ui/WrongAnswerModal")
 options =
   attemptsPerQuestion: 2
   maxQuestionsPerCommand: 2
-  maxQuestionCount: 25 # 40
-  fixedOrder: true
+  maxQuestionCount: 40 # 40
+  fixedOrder: false
 
 documentReady = new Observable()
 questionDataSource = new QuestionDataSource rawQuestionData,

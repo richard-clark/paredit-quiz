@@ -4,6 +4,13 @@ rq = require("../rQuery")
 replaceCursor = (element, cursorIndex, startIndex=0) ->
   index = startIndex
 
+  if startIndex is 0 and element.childNodes.length is 0
+    # Node is empty
+    cursor = document.createElement("span")
+    cursor.classList.add("code--cursor")
+    element.appendChild(cursor)
+    return
+
   for childNode in element.childNodes
     if childNode.nodeType is document.TEXT_NODE
       if index <= cursorIndex <= index + childNode.textContent.length
