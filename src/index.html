@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="modal-container" id="end-of-game">
-      <div class="modal-container__modal modal modal--success">
+      <div class="modal-container__modal modal">
         <h1 class="modal__title">
           Game Over
         </h1>
@@ -41,23 +41,42 @@
           You can accomplish this task with one of the following commands. Try
           one now.
         </h3>
-        <div class="pie-chart">
-          <div class="pie-chart__data">
-          </div>
-          <ul class="pie-chart__legend legend">
-            <li class="legend__item">
-              <span class="legend__item__key"></span>
-              <span class="legend__item__value">1 (10)</span>
+        <div class="modal__section">
+          <ul class="scalar-group">
+            <li class="scalar-group__scalar scalar">
+              <h4 class="scalar__title">
+                Foo
+              </h4>
+              <p class="scalar__value">
+                123
+              </p>
             </li>
-            <li class="legend__item">
-              <span class="legend__item__key"></span>
-              <span class="legend__item__value">2 (5)</span>
+            <li class="scalar-group__scalar scalar">
+              <h4 class="scalar__title">
+                Bar
+              </h4>
+              <p class="scalar__value">
+                123
+              </p>
             </li>
-            <li class="legend__item">
-              <span class="legend__item__key"></span>
-              <span class="legend__item__value">wrong (3)</span>
+            <li class="scalar-group__scalar scalar">
+              <h4 class="scalar__title">
+                Baz
+              </h4>
+              <p class="scalar__value">
+                123
+              </p>
             </li>
           </ul>
+        </div>
+        <div class="modal__section">
+          <h2 class="modal__subtitle">Point Breakdown</h2>
+          <div class="pie-chart modal__chart">
+            <div class="pie-chart__data data">
+            </div>
+            <ul class="pie-chart__legend legend">
+            </ul>
+          </div>
         </div>
         <div class="modal__buttons">
           <button class="button" event-on-click="new-game">

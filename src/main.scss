@@ -8,14 +8,26 @@ TODO:
 */
 
 $black: #222;
-$blue: #03A9F4;
+// $green: #03A9F4;
+$green: #00C853;
 $gray--light: #EEEEEE;
 $gray: #bbb;
 $gray--dark: #616161;
 $white: #fff;
 
+$blue: #2196F3;
+$yellow: #FF9100;
+$red: #E53935;
+$blue--dark: #0277BD;
+
+$font-size--normal: 1em;
+$font-size--medium: 1.15em;
+$font-size--large: 1.5em;
+$font-size--larger: 2.5em;
+
 html {
   background: $white;
+  font-size: 16px;
 }
 
 pre {
@@ -30,7 +42,7 @@ body {
 
 .nav {
   align-items: center;
-  background: #0277BD;
+  background: $blue--dark;
   box-shadow: 0 3px 10px #ddd;
   color: $white;
   display: flex;
@@ -203,19 +215,20 @@ body {
 
 .modal {
   background-color: $white;
+  border-top: 10px solid $blue;
   box-sizing: border-box;
   padding: 2em;
 
   &--success {
-    border-top: 10px solid #2196F3;
+    border-top: 10px solid $green;
   }
 
   &--warning {
-    border-top: 1px solid #FF9100;
+    border-top: 1px solid $yellow;
   }
 
   &--error {
-    border-top: 10px solid #E53935;
+    border-top: 10px solid $red;
   }
 
   &__nav {
@@ -246,6 +259,10 @@ body {
     margin-left: -2em;
     margin-right: -2em;
     padding: 1em 2em;
+
+    & > * + * {
+      margin-top: 1em;
+    }
 
     &:nth-of-type(1) {
       background-color: $gray--light;
@@ -279,15 +296,62 @@ body {
 }
 
 .pie-chart {
-  margin-bottom: 2em;
-
   .pie-chart__data {
-    background-color: red;
     height: 3em;
   }
 
   .pie-chart__data + .pie-chart__legend {
     margin-top: 1em;
+  }
+}
+
+.data {
+  display: flex;
+
+  &__slice {
+    height: 100%;
+
+    &--success {
+      background-color: $green;
+    }
+
+    &--warning {
+      background-color: $yellow;
+    }
+
+    &--error {
+      background-color: $red;
+    }
+  }
+}
+
+.scalar-group {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  &__scalar {
+    display: block;
+    flex: 1;
+  }
+}
+
+.scalar {
+  &__title {
+    font-size: $font-size--large;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  &__value {
+    font-size: $font-size--larger;
+    font-weight: 300;
+    margin: 0;
+  }
+
+  &__title + &__value {
+    margin-top: 0.3em;
   }
 }
 
@@ -303,11 +367,22 @@ body {
     flex-grow: 1;
 
     &__key {
-      background-color: red;
       display: block;
       height: 1em;
       margin-right: 0.3em;
       width: 1em;
+
+      &--success {
+        background-color: $green;
+      }
+
+      &--warning {
+        background-color: $yellow;
+      }
+
+      &--error {
+        background-color: $red;
+      }
     }
   }
 

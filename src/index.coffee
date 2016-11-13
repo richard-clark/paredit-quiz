@@ -4,12 +4,13 @@ Observable = require("./Observable")
 CombineLatestObservable = require("./CombineLatestObservable")
 keyEventToBinding = require("./keyEventToBinding")
 TimerObservable = require("./TimerObservable")
+GameStats = require("./GameStats")
 
 ###
 TODO:
 - Keys that don't map to commands that are successfully consumed (e.g. `C-r`)
   should be treated as incorrect input instead of ignored.
-
+- Add support for restarting the current game.
 ###
 
 navUi = require("./ui/nav")
@@ -62,15 +63,15 @@ window.addEventListener "keydown", (event) ->
     event.stopPropagation()
     return false
 
-score = 0
 currentCommands = []
 pointsForQuestion = 0
 lastQuestion = false
+responses = new GameStats()
 
 gameLifecycle.on ({type}) ->
   if type is "NEW_GAME"
-    score = 0
-    scoreObservable.emit(0)
+    responses = new GameStats()
+    scoreObservable.emit(responses.getScore())
     questionDataSource.shuffle()
 
 new navUi.Score(scoreObservable)
@@ -94,6 +95,7 @@ keyPress.on (command) ->
       type: "CORRECT_RESPONSE"
       points: pointsForQuestion
       lastQuestion: lastQuestion
+      time: timerObservable.value()
 
   else
     # Invalid response
@@ -104,9 +106,9 @@ keyPress.on (command) ->
 
 # Update score
 gameLifecycle.on (event) ->
-  if event.type is "CORRECT_RESPONSE" and event.points > 0
-    score += pointsForQuestion
-    scoreObservable.emit(score)
+  if event.type is "CORRECT_RESPONSE"
+    responses.addResponse(event)
+    scoreObservable.emit(responses.getScore())
 
 # Clear timer on incorrect response
 gameLifecycle.on (event) ->
@@ -119,7 +121,7 @@ gameLifecycle.on (event) ->
     timerObservable.pause()
     gameLifecycle.emit
       type: "END_OF_GAME"
-      score: score
+      responses: responses
 
 # Show next question if this is not the last question
 gameLifecycle.on (event) ->

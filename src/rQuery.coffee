@@ -1,3 +1,8 @@
+###
+TODO:
+- How about a better name?
+###
+
 factory = (elements) ->
   fn = {}
 
@@ -60,6 +65,12 @@ factory = (elements) ->
       elements[0].id = id
     return fn
   fn.setId = setId
+
+  style = (selector, value) ->
+    for element in elements
+      element.style[selector] = value
+    return fn
+  fn.style = style
 
   tap = (invokee) ->
     for element in elements
