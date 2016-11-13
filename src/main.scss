@@ -1,6 +1,6 @@
 @import "sass/base";
 
-$black: #000;
+$black: #222;
 $black--semi-transparent: transparentize($black, 0.5);
 $blue--light: #4FC3F7;
 $blue--lighter: #B3E5FC;
@@ -9,8 +9,8 @@ $blue-gray--lighter: #263238;
 $blue-gray: #607D8B;
 $blue: #2196F3;
 $gray--dark: #616161;
-$gray--light: #EEEEEE;
-$gray: #bbb;
+$gray--light: #F5F5F5;
+$gray: #E0E0E0;
 $green: #00C853;
 $red: #E53935;
 $white: #fff;
@@ -23,6 +23,7 @@ $font-size--larger: 2.5em;
 
 html {
   background: $white;
+  color: $black;
   font-size: 16px;
 }
 
@@ -206,7 +207,6 @@ body {
 
 .modal {
   background-color: $white;
-  border-top: 10px solid $blue;
   padding: 2em;
 
   &--success {
@@ -219,11 +219,6 @@ body {
 
   &--error {
     border-top: 10px solid $red;
-  }
-
-  &__nav {
-    background-color: $blue;
-    height: 4em;
   }
 
   &__title {
@@ -265,16 +260,12 @@ body {
 }
 
 .bindings {
-  list-style-type: none;
-  margin: 0;
   margin-top: 0.75em;
-  padding: 0;
 
   &__binding {
-    background-color: $gray--light;
-    border: 1px solid $gray--dark;
+    background-color: $gray;
+    border-radius: 0.3em;
     display: inline-block;
-    font-family: monospace;
     font-size: 2em;
     padding: 0 0.3em;
     padding-bottom: 0.1em;

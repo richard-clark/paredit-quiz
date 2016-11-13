@@ -4,7 +4,10 @@ scss = require("gulp-sass")
 
 # If these start with `./`, `gulp.watch` doesn't recognize new files.
 SRC =
-  FONTS: "bower_components/open-sans-fontface/fonts/**/*.{eot,svg,ttf,woff,woff2}"
+  FONTS: [
+    "bower_components/open-sans-fontface/fonts/**/*.{eot,svg,ttf,woff,woff2}"
+    "src/fonts/**/*.ttf"
+  ]
   HTML_MAIN: "src/*.html"
   JS: "src/**/*.coffee"
   JS_MAIN: "src/index.coffee"

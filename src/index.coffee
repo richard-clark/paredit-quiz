@@ -8,8 +8,8 @@ GameStats = require("./GameStats")
 
 ###
 TODO:
-- Keys that don't map to commands that are successfully consumed (e.g. `C-r`)
-  should be treated as incorrect input instead of ignored.
+- Store scores with local storage; display past scores.
+- Allow options to be change dynamically. (e.g. maxQuestionCount).
 ###
 
 navUi = require("./ui/nav")
@@ -21,8 +21,8 @@ WrongAnswerModalUi = require("./ui/WrongAnswerModal")
 options =
   attemptsPerQuestion: 2
   maxQuestionsPerCommand: 2
-  maxQuestionCount: 10 # 40
-  fixedOrder: false
+  maxQuestionCount: 25
+  fixedOrder: false # useful for debugging--don't randomize the order of the questions.
   keyBindings:
     # Swap the properties as necessary--this works for OSX.
     command: "metaKey"

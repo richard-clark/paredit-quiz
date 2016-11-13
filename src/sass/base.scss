@@ -6,6 +6,26 @@
   font-family: "Open Sans", sans-serif;
 }
 
+@font-face {
+  font-family: "Inconsolata";
+  src: url("./fonts/Inconsolata-Regular.ttf") format("truetype");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Inconsolata";
+  src: url("./fonts/Inconsolata-Regular.ttf") format("truetype");
+  font-weight: bold;
+}
+
+@mixin monospace-font {
+  font-family: "Inconsolata", monospace;
+}
+
 body {
   @include default-font;
+}
+
+code, pre, kbd {
+  @include monospace-font;
 }

@@ -1,14 +1,9 @@
 AbstractModal = require("./AbstractModal")
 rq = require("../fluentDom")
 
-###
-TODO:
-- Rename modal to #wrong-answer instead of #hint (hint doens't make any sense).
-###
-
 class WrongAnswerModal extends AbstractModal
   constructor: (dataSource, questionObservable, gameLifecycleObservable) ->
-    super("#hint")
+    super("#wrong-answer")
 
     questionObservable.on ([{item}]) =>
       @hide()
@@ -19,7 +14,7 @@ class WrongAnswerModal extends AbstractModal
           category = dataSource.categoryForCommand[command]
           bindings = dataSource.bindingsForCommand[command]
 
-          commands.add("div")
+          commands.add()
             .addClass("modal__section")
             .add("h2")
               .addClass("modal__subtitle")
@@ -27,12 +22,12 @@ class WrongAnswerModal extends AbstractModal
               .parent()
             .tap (element) ->
               for binding in bindings
-                element.add("ul")
+                element.add()
                   .addClass("bindings")
                   .tap (bindingElement) ->
                       keys = binding.split("-")
                       for key in keys
-                        bindingElement.add("li")
+                        bindingElement.add("kbd")
                           .addClass("bindings__binding")
                           .text(key)
 
