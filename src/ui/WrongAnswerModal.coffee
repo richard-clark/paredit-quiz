@@ -1,5 +1,5 @@
 AbstractModal = require("./AbstractModal")
-rq = require("../rQuery")
+rq = require("../fluentDom")
 
 ###
 TODO:

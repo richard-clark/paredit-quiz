@@ -1,8 +1,6 @@
 express = require("express")
-proxy = require("express-http-proxy")
 morgan = require("morgan")
 path = require("path")
-url = require("url")
 
 startServer = () ->
   server = express()
@@ -19,9 +17,6 @@ startServer = () ->
 
   # Serve static files
   server.use("/static", express.static(staticPath))
-
-  # API passthrough
-  server.use("/api", proxy("localhost:8080"))
 
   listener = server.listen 8081, () ->
     console.log("Listening on port: #{listener.address().port}")

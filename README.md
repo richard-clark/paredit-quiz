@@ -1,39 +1,44 @@
-# Web App Template
+# Paredit Quiz
 
-A simple web application template with CoffeeScript, SCSS, and Gulp.
+(Better name to be determined.)
 
-This template includes Open Sans, an open-source sans-serif font.
+This is a simple web application for building proficiency with [Paredit](https://www.emacswiki.org/emacs/ParEdit) (for Lisp, with default Emacs keyboard shortcuts) in a quiz format.
 
-## Usage
+The app will present you with a series of questions (in random order). A question has two snippets of Lisp code, with the current cursor position indicated. The goal is to get from the first code snippet (`transform this`) to the second (`to this`) using a single Paredit.
 
-Dependencies are installed using npm and Bower. Install using:
+By default, the Meta key (`M-`) corresponds to whatever key sets the [`altKey`](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/altKey) property for a keyboard event in your browser. The Ctrl key (`C-`) is triggered by the [`ctrlKey`](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/ctrlKey) property.
+
+The majority of these examples come from the [Paredit Reference Card (pdf)](http://pub.gajendra.net/src/paredit-refcard.pdf), with a couple of additions. Some questions have multiple possible solutions. In this case, any solution is valid.
+
+For a given example, this app checks to see if you've used the command that corresponds to the example in the Reference Card. It does not actually emulate Emacs or Paredit—if a command is listed on the cheatsheet, and it's applicable to an example, it should work; other Paredit commands, or other Emacs commands will not work.
+
+If you find an example that has a keyboard shortcut that doesn't work, please file an issue. (Or, if you have any further examples.)
+
+## Running Locally
+
+Install dependencies:
 
 ```
-npm install
+npm install --production
 bower install
 ```
 
-Run `gulp build` to compile the various static files that comprise the application. The resulting `build/` directory will contain all files necessary for running the app.
+Compile CoffeeScript to JavaScript, SCSS to CSS, and move everything into the build directory:
 
-Run `gulp watch` to continuously watch the source files and update the `build/` directory as necessary.
-
-To run this as a stand-alone application, run the `server.coffee` script: this will start a server on `localhost:8081`. (Before you do this, you'll need to install the npm `devDependencies` using `npm install --production`.)
-
-Usage:
 ```
+gulp build
+```
+
+(If you're actively working on the application, run `gulp watch` to rebuild whenever a source file changes.)
+
+Run using the provided `server.coffee` script, which starts a server and serves the app at `localhost:8081`:
+
+```
+# If CoffeeScript is installed globally:
 coffee server.coffee
+
+# If CoffeeScript is not installed globally, uncomment and run:
+# ./node_modules/coffee-script/bin/coffee server.coffee
 ```
 
-## Gulp
-
-Gulp is a build tool used to transform the various source files into the files served by the web application. The various tasks are described below.
-
-The `build` task (`gulp build`) does the following:
-
-- Copies fonts from `bower_components/` to `build/`.
-- Copies `index.html` from `src/` to `build/`.
-- Compiles the various CoffeeScript files to a single JavaScript file (`build/static/index.js`), using Coffeeify.
-- Compiles the various SCSS files into CSS files, and then combines them into a single file (`build/static/main.css`).
-- Converts Angular template HTML files into an Angular module (a JavaScript file) so they can be included in `build/static/index.js`.
-
-The `watch` task (`gulp watch`) invokes the `build` task when first invoked, and then runs any dependent task when one of the `src/` files changes.
+The app can then be accessed at `http://localhost:8081/app`.

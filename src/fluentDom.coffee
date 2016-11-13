@@ -1,6 +1,5 @@
 ###
-TODO:
-- How about a better name?
+Utilities for chained DOM manipulation, like jQuery.
 ###
 
 factory = (elements) ->

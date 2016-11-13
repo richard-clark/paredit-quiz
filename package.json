@@ -1,13 +1,10 @@
 {
-  "name": "web-template",
+  "name": "paredit-quiz",
   "version": "1.0.0",
   "description": "",
   "main": "Gulpfile.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
+  "author": "richard-clark",
+  "license": "MIT",
   "dependencies": {
     "gulp": "^3.9.1",
     "gulp-coffeeify": "^0.1.8",

@@ -10,9 +10,7 @@ GameStats = require("./GameStats")
 TODO:
 - Keys that don't map to commands that are successfully consumed (e.g. `C-r`)
   should be treated as incorrect input instead of ignored.
-- Add support for restarting the current game.
-- Restore display of question number
-- Display number of questions in game over modal?
+
 ###
 
 navUi = require("./ui/nav")

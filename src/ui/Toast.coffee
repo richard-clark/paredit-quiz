@@ -1,4 +1,4 @@
-rq = require("../rQuery")
+rq = require("../fluentDom")
 
 SUCCESS_MESSAGES = [
   "Correct!"

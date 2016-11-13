@@ -1,8 +1,8 @@
 {
-  "name": "angular-template",
-  "version": "0.0.0",
+  "name": "paredit-quiz",
+  "version": "1.0.0",
   "authors": [
-    "richard-clark <rctheslimer@gmail.com>"
+    "richard-clark"
   ],
   "license": "MIT",
   "ignore": [

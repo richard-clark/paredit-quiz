@@ -1,4 +1,4 @@
-rq = require("../rQuery")
+rq = require("../fluentDom")
 
 class AbstractModal
   constructor: (@selector) ->

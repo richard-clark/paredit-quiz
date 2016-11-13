@@ -1,5 +1,5 @@
 hljs = require("highlight.js")
-rq = require("../rQuery")
+rq = require("../fluentDom")
 
 replaceCursor = (element, cursorIndex, startIndex=0) ->
   index = startIndex
