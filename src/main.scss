@@ -62,11 +62,14 @@ body {
   position: relative;
 
   &__message-container {
-    left: 50%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    left: 0;
     margin-top: 0.3em;
     position: absolute;
     top: 0;
-    transform: translateX(-50%);
+    width: 100%;
   }
 
   &__question {

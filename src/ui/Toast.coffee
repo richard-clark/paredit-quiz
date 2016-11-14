@@ -9,8 +9,6 @@ SUCCESS_MESSAGES = [
 class Toast
   constructor: (observable) ->
     observable.on (event) ->
-      console.log("Toast")
-      console.log(event)
       message = null
       if event.type is "CORRECT_RESPONSE" and event.points > 0
         message = SUCCESS_MESSAGES[Math.floor(Math.random() * SUCCESS_MESSAGES.length)]
