@@ -8,6 +8,15 @@ class WrongAnswerModal extends AbstractModal
     questionObservable.on ([{item}]) =>
       @hide()
 
+      if item.commands.length > 1
+        message = "You can accomplish this task with one of the following
+          commands. Try one now."
+      else
+        message = "You can accomplish this task with the following command. Try
+          it now."
+
+      rq("#wrong-answer .modal__copy").text(message)
+
       rq("#commands").clear().tap (commands) ->
 
         for command in item.commands

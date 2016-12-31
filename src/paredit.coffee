@@ -78,11 +78,11 @@ module.exports =
     "paredit-splice-sexp": ["M-s"]
     "paredit-splice-sexp-killing-backward": [
       "M-<up>"
-      # "ESC <up>"
+      # "ESC <up>" # not supported
     ]
     "paredit-splice-sexp-killing-forward": [
       "M-<down>"
-      # "ESC <down>"
+      # "ESC <down>" # not supported
     ]
     "paredit-raise-sexp": ["M-r"]
     "paredit-forward-slurp-sexp": ["C-)", "C-<right>"]
@@ -90,12 +90,12 @@ module.exports =
     "paredit-backward-slurp-sexp": [
       "C-("
       "C-M-<left>"
-      # "ESC C-<left>"
+      # "ESC C-<left>" # not supported
     ]
     "paredit-backward-barf-sexp": [
       "C-{"
       "C-M-<right>"
-      # "ESC C-<left>"
+      # "ESC C-<left>" # not supported
     ]
     "paredit-split-sexp": ["M-S"]
     "paredit-join-sexp": ["M-J"]
@@ -367,7 +367,7 @@ module.exports =
         "paredit-splice-sexp-killing-backward"
       ]
       from: "(a (b c| d e) f)"
-      to: "(a | d e f)"
+      to: "(a |d e f)"
     ,
       commands: [
         "paredit-splice-sexp-killing-forward"

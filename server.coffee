@@ -21,4 +21,4 @@ startServer = () ->
   listener = server.listen 8081, () ->
     console.log("Listening on port: #{listener.address().port}")
 
-startServer()
+startServer(8081)

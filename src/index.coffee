@@ -24,7 +24,7 @@ options =
   maxQuestionCount: 25
   fixedOrder: false # useful for debugging--don't randomize the order of the questions.
   keyBindings:
-    # Swap the properties as necessary--this works for OSX.
+    # Swap these properties as necessary--this configuration works for macOS.
     command: "metaKey"
     ctrl: "ctrlKey"
     meta: "altKey"
