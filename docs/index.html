@@ -1,0 +1,70 @@
+<!doctype html>
+<html ng-app="app">
+  <head>
+    <base href="/app">
+    <link rel="stylesheet" href="/static/main.css">
+    <title>Paredit Quiz</title>
+    <script type="text/javascript" src="/static/index.js"></script>
+  </head>
+  <body>
+    <nav class="nav">
+      <h1 class="nav__title">Paredit Quiz</h1>
+      <button class="button button--nav"
+        event-on-click="new-game"
+      >
+        New Game
+      </button>
+      <button class="button button--nav"
+        event-on-click="restart"
+      >
+        Restart
+      </button>
+      <div class="nav__expander"></div>
+      <h3 class="nav__metric" id="question-index"></h3>
+      <h3 class="nav__metric" id="score"></h3>
+      <h3 class="nav__metric" id="time"></h3>
+    </nav>
+    <main class="main" id="main">
+      <div class="main__message-container"
+        id="message-container"
+      ></div>
+    </main>
+    <div class="modal-container" id="wrong-answer">
+      <div class="modal-container__modal modal modal--error">
+        <h1 class="modal__title">
+          Sorry, wrong answer
+        </h1>
+        <h3 class="modal__copy"></h3>
+        <div id="commands"></div>
+      </div>
+    </div>
+    <div class="modal-container" id="end-of-game">
+      <div class="modal-container__modal modal">
+        <h1 class="modal__title">
+          Game Over
+        </h1>
+        <h3 class="modal__copy"></h3>
+        <div class="modal__section">
+          <ul class="scalar-group"></ul>
+        </div>
+        <div class="modal__section">
+          <h2 class="modal__subtitle">Point Breakdown</h2>
+          <div class="pie-chart modal__chart">
+            <div class="pie-chart__data data">
+            </div>
+            <ul class="pie-chart__legend legend">
+            </ul>
+          </div>
+        </div>
+        <div class="modal__buttons">
+          <button class="button" event-on-click="new-game">
+            New Game
+          </button>
+          <button class="button" event-on-click="restart">
+            Restart
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

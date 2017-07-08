@@ -1,5 +1,4 @@
 node_modules/
 .DS_Store
-build/
 bower_components/
 src/modules/templates/

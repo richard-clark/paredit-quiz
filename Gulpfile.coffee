@@ -23,22 +23,22 @@ gulp.task "build", [
 
 gulp.task "fonts", () ->
   gulp.src(SRC.FONTS)
-    .pipe(gulp.dest("./build/static/fonts"))
+    .pipe(gulp.dest("./docs/static/fonts"))
 
 gulp.task "html", () ->
   gulp.src(SRC.HTML_MAIN)
-    .pipe(gulp.dest("./build"))
+    .pipe(gulp.dest("./docs"))
 
 gulp.task "js", () ->
   gulp.src(SRC.JS_MAIN)
     .pipe coffeeify
       options: {}
-    .pipe(gulp.dest("./build/static"))
+    .pipe(gulp.dest("./docs/static"))
 
 gulp.task "scss", () ->
   gulp.src(SRC.SCSS_MAIN)
     .pipe(scss().on("error", scss.logError))
-    .pipe(gulp.dest("./build/static"))
+    .pipe(gulp.dest("./docs/static"))
 
 gulp.task "watch", ["build"], () ->
   gulp.watch(SRC.HTML_MAIN, ["html"])
