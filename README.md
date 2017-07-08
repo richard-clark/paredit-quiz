@@ -1,8 +1,10 @@
 # Paredit Quiz
 
-(Better name to be determined.)
+(Better name to be determined. :grin:)
 
 This is a simple web application for building proficiency with [Paredit](https://www.emacswiki.org/emacs/ParEdit) (for Lisp, with default Emacs keyboard shortcuts) in a quiz format.
+
+![screen shot 2017-07-08 at 2 30 06 pm](https://user-images.githubusercontent.com/6880453/27988265-ddc31e6c-63eb-11e7-9466-5bdae655d07b.png)
 
 The app will present you with a series of questions (in random order). A question has two snippets of Lisp code, with the current cursor position indicated. The goal is to get from the first code snippet (`transform this`) to the second (`to this`) using a single Paredit.
 
